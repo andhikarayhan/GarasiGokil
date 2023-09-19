@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Car Information</title>
+</head>
+<body>
+
+<h1>{{ app }}</h1>
+
+<p>Nama: {{ name }}</p>
+<p>Kelas: {{ class }}</p>
+
+<h2>Car Information</h2>
+
+{% for car in cars %}
+  <h3>{{ car.brand }} {{ car.model }} (Quantity: {{ car.amount }})</h3>
+  <p><strong>Engine Specification:</strong> {{ car.engine_spec }}</p>
+{% endfor %}
+
+</body>
+</html>
+
