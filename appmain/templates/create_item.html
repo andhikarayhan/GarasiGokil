@@ -1,4 +1,32 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
+
+{% block meta %}
+{% load static %}
+    <title>Fastrack - Add New Car</title>
+    <style>
+        /* Add your styles here */
+        body {
+            font-family: Agrandir, sans-serif;
+            background-color: #f0f0f0;
+            background-image: url('{% static "formbg.png" %}');
+            margin: 20px;
+            padding: 20px;
+            text-align: center; /* Center the form */
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            margin: 0 auto; /* Center the table */
+        }
+
+        /* Adjust other styles as needed */
+    </style>
+{% endblock meta %}
 
 {% block content %}
 <h1>Add New Car</h1>
@@ -16,4 +44,4 @@
     </table>
 </form>
 
-{% endblock %}
+{% endblock content %}
