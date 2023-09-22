@@ -9,31 +9,11 @@ from appmain.models import Item
 
 def show_main(request):
     items = Item.objects.all()
-    items_count = Item.objects.count() + 3
+    items_count = Item.objects.count()
     context = {
         'app': 'FasTrack',
         'name': 'Andhika Finnanda Rayhan',
         'class': 'PBP E',
-        'cars': [
-            {
-                'brand': 'BMW',
-                'model': 'M3',
-                'amount': 1,
-                'engine_spec': '3.0L Twin-turbocharged I6, 473 hp'
-            },
-            {
-                'brand': 'BMW',
-                'model': 'X5',
-                'amount': 2,
-                'engine_spec': '3.0L Twin-turbocharged I6, 335 hp'
-            },
-            {
-                'brand': 'Mercedes-Benz',
-                'model': 'E-Class',
-                'amount': 1,
-                'engine_spec': '3.0L Twin-turbocharged V6, 362 hp'
-            }
-        ],
         'items': items,
         'items_count': items_count,
     }
