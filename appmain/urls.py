@@ -1,7 +1,8 @@
 from django.urls import path
 
-from appmain.views import (create_item, show_json, show_json_by_id, show_main,
-                           show_xml, show_xml_by_id)
+from appmain.views import (create_item, login_user, logout_user, register,
+                           show_json, show_json_by_id, show_main, show_xml,
+                           show_xml_by_id)
 
 app_name = 'appmain'
 
@@ -11,5 +12,8 @@ urlpatterns = [
     path('xml/', show_xml, name='show_xml'),
     path('json/', show_json, name='show_json'),
     path('xml/<int:id>/', show_xml_by_id, name='show_xml_by_id'),
-    path('json/<int:id>/', show_json_by_id, name='show_json_by_id'), 
+    path('json/<int:id>/', show_json_by_id, name='show_json_by_id'),
+    path('register/', register, name='register'),
+    path('login/', login_user, name='login'),
+    path('logout/', logout_user, name='logout'),
 ]

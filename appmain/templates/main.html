@@ -8,6 +8,8 @@
             font-family: Agrandir, sans-serif;
             background-color: #000;
             background-image: url('{% static "blackbg.jpg" %}');
+            background-size: cover;
+            background-repeat: no-repeat;
             margin: 20px;
             padding: 20px;
         }
@@ -53,15 +55,44 @@
         }
 
         .add-button:hover {
-            background-color: #FF0000;
-            box-shadow: 0px 0px 10px 5px rgba(255, 0, 0, 0.7);
+            background-color: #00ff33;
+            box-shadow: 0px 0px 10px 5px rgba(1, 181, 43, 0.44);
             transform: translateY(-50%) scale(1.05);
         }
 
         .add-button:active {
-            background-color: #FF0000;
-            box-shadow: 0px 0px 15px 8px rgba(255, 0, 0, 0.7);
+            background-color: #00ff33;
+            box-shadow: 0px 0px 15px 8px rgba(1, 181, 43, 0.44);
             transform: translateY(-50%) scale(0.95);
+        }
+
+        .logout-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+        }
+
+        .logout-button button {
+            font-size: 18px;
+            padding: 10px;
+            background-color: #FF0000;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+            cursor: pointer;
+        }
+
+        .logout-button button:hover {
+            background-color: #ff3333;
+            box-shadow: 0px 0px 10px 5px rgba(255, 0, 0, 0.7);
+            transform: scale(1.05);
+        }
+
+        .logout-button button:active {
+            background-color: #ff3333;
+            box-shadow: 0px 0px 15px 8px rgba(255, 0, 0, 0.7);
+            transform: scale(0.95);
         }
 
     </style>
@@ -73,17 +104,23 @@
     <p>Nama: {{ name }}</p>
     <p>Kelas: {{ class }}</p>
 
+    <h2>Vehicle models in garage:  {{ items_count }}</h2>
+    
     <h2>Car Information</h2>
 
-    <h2>Vehicles in garage:  {{ items_count }}</h2>
-
     {% for item in items %}
-        <h3>{{ item.brand }} {{ item.model }} (Quantity: {{ item.amount }})</h3>
+        <h3>{{ item.brand }} {{ item.model }} (Quantity:  {{ item.amount }})</h3>
         <p><strong>Engine Specification:</strong> {{item.engine_spec }}</p>
     {% endfor %}
 
     <a href="{% url 'appmain:create_item' %}" class="add-button">
         Add New Car
+    </a>
+
+    <a href="{% url 'appmain:logout' %}" class="logout-button">
+        <button>
+            Logout
+        </button>
     </a>
 {% endblock content %}
 
