@@ -21,3 +21,58 @@ Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-b
 ![JSON](https://github.com/andhikarayhan/GarasiGokil/blob/main/Screenshot%202023-09-20%20034604.png)
 ![XMLBYID](https://github.com/andhikarayhan/GarasiGokil/blob/main/Screenshot%202023-09-20%20035029.png)
 ![JSONBYID](https://github.com/andhikarayhan/GarasiGokil/blob/main/Screenshot%202023-09-20%20035146.png)
+
+
+=================================================================TUGAS 3====================================================================================
+1. Apa itu Django UserCreationForm, dan jelaskan apa kelebihan dan kekurangannya?
+UserCreationForm adalah sebuah formulir (form) yang disediakan oleh Django untuk memudahkan proses pembuatan pengguna (user) dalam sistem otentikasi Django. Formulir ini secara khusus digunakan untuk mendaftarkan pengguna baru.
+
+Kelebihan:
+a. Mudah Digunakan
+UserCreationForm menyediakan antarmuka pengguna yang mudah digunakan untuk mendaftarkan pengguna baru tanpa perlu menulis kode validasi dan penanganan form dari awal.
+
+b. Integrasi Dengan Django
+Form ini terintegrasi dengan baik dengan model pengguna bawaan Django (User). Ini mempermudah untuk membuat dan menyimpan pengguna baru ke dalam database.
+
+c. Validasi Otomatis
+UserCreationForm mencakup validasi otomatis untuk memastikan data yang dimasukkan sesuai dengan kebutuhan, seperti memastikan alamat email unik, password dengan panjang yang cukup, dll.
+
+Kekurangan:
+a. Tidak Fleksibel
+Secara default, UserCreationForm memiliki struktur dan validasi bawaan yang mungkin tidak sesuai dengan kebutuhan proyek tertentu. Pada kasus tertentu, Anda mungkin perlu menyesuaikan atau memperluas fungsionalitasnya, yang memerlukan penyesuaian tambahan.
+
+
+2. Apa perbedaan antara autentikasi dan otorisasi dalam konteks Django, dan mengapa keduanya penting?
+Autentikasi adalah proses verifikasi identitas pengguna untuk memastikan bahwa pengguna yang mengakses sistem adalah pengguna yang sebenarnya dan memiliki izin untuk melakukannya. Ini melibatkan validasi kredensial yang diajukan oleh pengguna, seperti username dan password.
+
+Otorisasi adalah proses mengontrol akses atau izin yang diberikan kepada pengguna setelah mereka berhasil terautentikasi. Ini menentukan apa yang diizinkan atau tidak diizinkan oleh pengguna yang terotentikasi dalam sistem.
+
+Kedua hal ini penting karena autentikasi dan otorisasi adalah fondasi keamanan aplikasi, menjaga identitas pengguna dan mengendalikan akses ke sumber daya, sesuai dengan kebijakan dan peraturan yang berlaku.
+
+
+3. Apa itu cookies dalam konteks aplikasi web, dan bagaimana Django menggunakan cookies untuk mengelola data sesi pengguna?
+Cookies adalah file teks kecil yang disimpan pada perangkat pengguna oleh situs web yang dikunjungi. Cookies ini memungkinkan situs web untuk menyimpan informasi yang akan digunakan kembali, seperti preferensi pengguna atau data sesi, saat pengguna melanjutkan menjelajah situs tersebut.
+
+Dalam konteks Django, cookies digunakan untuk mengelola data sesi pengguna. Data sesi adalah informasi yang dihasilkan dan disimpan di server untuk mengenali pengguna selama mereka berinteraksi dengan aplikasi web. Django menggunakan cookies untuk menyimpan identifier unik yang mengaitkan pengguna dengan data sesinya di server.
+
+Secara khusus, Django menggunakan session middleware untuk mengelola cookies. Saat pengguna pertama kali mengakses aplikasi, server akan menghasilkan identifier unik (session ID) untuk sesi pengguna dan menyimpannya dalam cookie di perangkat pengguna. Selanjutnya, setiap permintaan yang dilakukan oleh pengguna akan menyertakan session ID ini, memungkinkan Django untuk mengidentifikasi dan memuat data sesi yang sesuai.
+
+Dengan menggunakan cookies untuk mengelola data sesi, Django memungkinkan aplikasi untuk mempertahankan keadaan dan informasi pengguna antar permintaan, yang merupakan elemen kunci dalam pengembangan aplikasi web yang interaktif dan personal.
+
+
+4. Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai?
+Cookies adalah file teks kecil yang disimpan pada perangkat pengguna oleh situs web yang dikunjungi. Cookies ini memungkinkan situs web untuk menyimpan informasi yang akan digunakan kembali, seperti preferensi pengguna atau data sesi, saat pengguna melanjutkan menjelajah situs tersebut.
+
+Dalam konteks Django, cookies digunakan untuk mengelola data sesi pengguna. Data sesi adalah informasi yang dihasilkan dan disimpan di server untuk mengenali pengguna selama mereka berinteraksi dengan aplikasi web. Django menggunakan cookies untuk menyimpan identifier unik yang mengaitkan pengguna dengan data sesinya di server.
+
+Secara khusus, Django menggunakan session middleware untuk mengelola cookies. Saat pengguna pertama kali mengakses aplikasi, server akan menghasilkan identifier unik (session ID) untuk sesi pengguna dan menyimpannya dalam cookie di perangkat pengguna. Selanjutnya, setiap permintaan yang dilakukan oleh pengguna akan menyertakan session ID ini, memungkinkan Django untuk mengidentifikasi dan memuat data sesi yang sesuai.
+
+Dengan menggunakan cookies untuk mengelola data sesi, Django memungkinkan aplikasi untuk mempertahankan keadaan dan informasi pengguna antar permintaan, yang merupakan elemen kunci dalam pengembangan aplikasi web yang interaktif dan personal.
+
+
+5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+Pertama saya mengimplementasi fungsi register, login, dan logout pada views.py, lalu saya memodifikasi pesan-pesan agar sesuai dengan tema aplikasi saya.
+Lalu untuk register dan login saya buatkan berkas-berkas HTML-nya masing-masing. Saya menambahkan restiksi agar user login/register terlebih dahulu dengan menambahkan @login_required pada sebelum fungsi show_main.
+
+Untuk cookiesnya, pada fungsi show_main bagian context, saya menambahkan 'last_login': request.COOKIES['last_login'] agar tersimpan data cookies setiap user. Lalu saya hubungkan Item dengan User yang sesuai dengan menggunakan Foreign Key. Terakhir saya stylize page register dan login agar sesuai tema aplikasi saya.
+
