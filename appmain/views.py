@@ -1,5 +1,8 @@
+import datetime
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.core import serializers
 from django.http import HttpResponse, HttpResponseRedirect
@@ -10,15 +13,18 @@ from appmain.forms import ItemForm
 from appmain.models import Item
 
 
+@login_required(login_url='/login')
 def show_main(request):
-    items = Item.objects.all()
-    items_count = Item.objects.count()
+    items = Item.objects.filter(user=request.user)
+    items_count = items.count()
     context = {
+        'username': request.user.username,
         'app': 'FasTrack',
         'name': 'Andhika Finnanda Rayhan',
         'class': 'PBP E',
         'items': items,
         'items_count': items_count,
+        'last_login': request.COOKIES['last_login'],
     }
 
     return render(request, "main.html", context)
@@ -27,7 +33,9 @@ def create_item(request):
     form = ItemForm(request.POST or None)
 
     if form.is_valid() and request.method == "POST":
-        form.save()
+        item = form.save(commit=False)
+        item.user = request.user
+        item.save()
         return HttpResponseRedirect(reverse('appmain:show_main'))
 
     context = {'form': form}
@@ -68,7 +76,9 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('appmain:show_main')
+            response = HttpResponseRedirect(reverse("appmain:show_main")) 
+            response.set_cookie('last_login', str(datetime.datetime.now()))
+            return response
         else:
             messages.info(request, 'Sorry, incorrect username or password. Please try again.')
     context = {}
@@ -76,4 +86,6 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    return redirect('appmain:login')
+    response = HttpResponseRedirect(reverse('appmain:login'))
+    response.delete_cookie('last_login')
+    return response

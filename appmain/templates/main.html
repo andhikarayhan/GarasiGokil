@@ -95,10 +95,28 @@
             transform: scale(0.95);
         }
 
+        .last-login {
+        font-size: 14px;
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        color: #fff;
+        }
+
+        .username{
+        font-size: 14px;
+        position: fixed;
+        top: 40px;
+        left: 20px;
+        color: #fff;
+        }
+
     </style>
 {% endblock meta %}
 
 {% block content %}
+    <p class="last-login">Sesi terakhir login: {{ last_login }}</p>
+    <p class="username">Hello , {{ username }}</p>
     <h1>{{ app }}</h1>
 
     <p>Nama: {{ name }}</p>
@@ -122,5 +140,6 @@
             Logout
         </button>
     </a>
+
 {% endblock content %}
 
