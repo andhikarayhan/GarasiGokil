@@ -2,6 +2,65 @@
 
 {% block meta %}
     <title>Login</title>
+    <style>
+        body {
+        background-color: #2d2c2c !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        font-family: Agrandir, sans-serif;
+    }
+
+    .login {
+        background-color: black;
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .login form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .login form input {
+        padding: 10px;
+        margin: 5px 0;
+    }
+
+    .login ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .login ul li {
+        color: red;
+    }
+
+    .login .login_btn{
+        color: white;
+        background-color: black;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .login .login_btn:hover {
+        background-color: rgb(48, 48, 48);
+        transform: scale(1.05);
+    }
+
+    .login .login_btn:active {
+        background-color: rgb(48, 48, 48);
+        transform: scale(0.95);
+    }
+    </style>
 {% endblock meta %}
 
 {% block content %}
@@ -38,7 +97,7 @@
         </ul>
     {% endif %}     
         
-    Don't have an account yet? <a href="{% url 'appmain:register' %}">Register Now</a>
+    Not a member yet? <a href="{% url 'appmain:register' %}">Register Now</a>
 
 </div>
 

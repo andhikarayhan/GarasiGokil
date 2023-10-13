@@ -1,8 +1,8 @@
 from django.urls import path
 
-from appmain.views import (create_item, login_user, logout_user, register,
-                           show_json, show_json_by_id, show_main, show_xml,
-                           show_xml_by_id)
+from appmain.views import (create_item, edit_product, login_user, logout_user,
+                           register, show_json, show_json_by_id, show_main,
+                           show_xml, show_xml_by_id)
 
 app_name = 'appmain'
 
@@ -16,4 +16,5 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('login/', login_user, name='login'),
     path('logout/', logout_user, name='logout'),
+    path('edit-product/<int:id>', edit_product, name='edit_product'),
 ]
