@@ -10,14 +10,17 @@
             background-image: url('{% static "blackbg.jpg" %}');
             background-size: cover;
             background-repeat: no-repeat;
-            margin: 20px;
-            padding: 20px;
+            margin: 0;
+            padding: 0;
         }
 
         h1 {
             color: #fff !important;
             text-align: center;
-            margin-bottom: 20px;
+            margin-left: 20px;
+            margin-top: 20px;
+            font-family: 'Agrandir';
+            margin-top: 10px;
         }
 
         p {
@@ -50,6 +53,30 @@
         text-decoration: none;
         }
 
+        #btnajax {
+        font-size: 18px;
+        padding: 5px 10px;
+        background-color: #282A3A;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: transform 0.2s;
+        text-decoration: none;
+        margin-left: 10px;
+        }
+
+        #btnajax:hover{
+            background-color: #035e16;
+            transform: scale(1.05);
+        }
+
+        #btnajax:active{
+            background-color: #035e16;
+            transform: scale(0.95);
+        }
+
+
         .add-button:hover {
             background-color: #00ff33;
             transform: scale(1.05);
@@ -61,9 +88,7 @@
         }
 
         .logout-button {
-            position: fixed;
-            top: 20px;
-            right: 20px;
+            margin-right: 10px;
         }
 
         .logout-button button {
@@ -91,7 +116,7 @@
 
         .fixed-info{
             top: 0;
-            padding: 20px;
+            padding: 0;
             z-index: 1;
         }
 
@@ -106,6 +131,21 @@
         color: #fff;
         }
 
+        .navbar {
+            margin: 0;
+            padding: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #000; /* Set the background color for the navbar */
+            padding: 10px; /* Adjust the padding to your preference */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000; /* Make sure it's above other content */
+        }
+
         .car-info {
             background: rgba(255, 255, 255, 0.145);
             border: 2px solid rgba(198, 151, 73, 0.7);
@@ -113,6 +153,8 @@
             padding: 15px;
             margin-bottom: 20px;
             position: relative;
+            margin-left: 40px;
+            margin-right: 40px;
         }
 
         .car-info + .car-info{
@@ -147,40 +189,109 @@
 {% endblock meta %}
 
 {% block content %}
-    <div class="fixed-info">
-        <p class="last-login">Sesi terakhir login: {{ last_login }}</p>
-        <p class="username">Hello , {{ username }}</p>
-    </div>
-    <h1>{{ app }}</h1>
-
-    <p>Nama: {{ name }}</p>
-    <p>Kelas: {{ class }}</p>
-
-    <h2>Vehicle models in garage:  {{ items_count }}</h2>
-    
-    <h2>Car Information <a href="{% url 'appmain:create_item' %}" class="add-button">
-        Add New Car
-    </a></h2>
-
-    {% for item in items %}
-    <div class="car-info">
-        <h3>
-            {{ item.brand }} {{ item.model }}
-            <a href="{% url 'appmain:edit_product' item.id %}" class="edit-button">
-                Edit
-            </a>
-            (Quantity: {{ item.amount }})
-        </h3>
-        <p><strong>Engine Specification:</strong> {{ item.engine_spec }}</p>
-    </div>
-{% endfor %}
-
-
+<div class="navbar">
+    <h1 style="margin-top: 10px;">{{ app }}</h1>
     <a href="{% url 'appmain:logout' %}" class="logout-button">
         <button>
             Logout
         </button>
     </a>
+</div>
+
+    <h2>Vehicle models in garage:  {{ items_count }}</h2>
+    
+    <h2 style="margin-bottom: 35px;">Car Information <a href="{% url 'appmain:create_item' %}" class="add-button">
+        Add New Car
+    </a>
+    <button type="button" class="btn btn-primary" id="btnajax" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Product by AJAX</button>
+    </h2>
+
+
+    <div class="modal fade"  id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="background-color: #00000055;">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Car</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form" onsubmit="return false;">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="brand" style="color: white;" class="col-form-label">Brand:</label>
+                            <input type="text" class="form-control" id="brand" name="brand"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="model" style="color: white;" class="col-form-label">Model:</label>
+                            <input type="text" class="form-control" id="model" name="model"></input>
+                        </engine_spec
+                        <div class="mb-3">
+                            <label for="amount" style="color: white;" class="col-form-label">Amount:</label>
+                            <input type="number" class="form-control" id="amount" name="amount"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="engine_spec" style="color: white;" class="col-form-label">Engine Specification:</label>
+                            <textarea class="form-control" id="engine_spec" name="engine_spec"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" style="background-color: #C69749;" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add New Car</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+ async function getProducts() {
+    return fetch("{% url 'appmain:get_product_json'%}").then((res) => res.json())
+ }
+
+    async function refreshProducts() {
+    const cardElements = document.getElementsByClassName("car-info");
+    for (const cardElement of cardElements) {
+        cardElement.remove(); // Clear the existing card elements
+    }
+
+    const products = await getProducts();
+
+    products.forEach((item) => {
+        const cardDiv = document.createElement("div");
+        cardDiv.className = "car-info";
+
+        const h3 = document.createElement("h3");
+        h3.textContent = `${item.fields.brand} ${item.fields.model}`;
+
+
+        const quantity = document.createElement("p");
+        quantity.textContent = `(Quantity: ${item.fields.amount})`;
+
+        const engineSpec = document.createElement("p");
+        engineSpec.innerHTML = `<strong>Engine Specification:</strong> ${item.fields.engine_spec}`;
+
+        cardDiv.appendChild(h3);
+        cardDiv.appendChild(quantity);
+        cardDiv.appendChild(engineSpec);
+
+        document.body.appendChild(cardDiv);
+    });
+}
+
+
+    refreshProducts();
+
+    function addProduct() {
+        fetch("{% url 'appmain:add_product_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(refreshProducts)
+
+        document.getElementById("form").reset()
+        return false
+    }
+    document.getElementById("button_add").onclick = addProduct
+ </script>
 
 {% endblock content %}
 

@@ -5,9 +5,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.core import serializers
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import (HttpResponse, HttpResponseNotFound,
+                         HttpResponseRedirect)
 from django.shortcuts import redirect, render
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
 
 from appmain.forms import ItemForm
 from appmain.models import Item
@@ -103,3 +105,23 @@ def edit_product(request, id):
 
     context = {'form': form}
     return render(request, "edit_product.html", context)
+
+def get_product_json(request):
+    car_item = Item.objects.all()
+    return HttpResponse(serializers.serialize('json',car_item))
+
+@csrf_exempt
+def add_product_ajax(request):
+    if request.method == 'POST':
+        brand = request.POST.get("brand")
+        model = request.POST.get("model")
+        amount = request.POST.get("amount")
+        engine_spec = request.POST.get("engine_spec")
+        user = request.user
+
+        new_car = Item(brand=brand, model=model, amount=amount,engine_spec=engine_spec,user=user)
+        new_car.save()
+
+        return HttpResponse(b"CREATED", status=201)
+    
+    return HttpResponseNotFound()
